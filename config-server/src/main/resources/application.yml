@@ -1,0 +1,52 @@
+# See http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+spring:
+  thymeleaf.cache: false
+
+  application:
+    name: config-server
+
+  # config 的服务端配置
+  cloud:
+    config:
+      server:
+#        bootstrap: true
+        git:
+          uri: https://github.com/neomx7/config-server
+          searchPaths: respo
+          username: neomx7
+          password: Read8891~
+          health:
+            repositories:
+              check:
+                name: config-server
+                label: master
+                profiles:
+                  active: default
+            fail-fast: true
+
+  #RabbitMQ相关的配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+# 服务注册中心 (单节点)
+server:
+  port: 12360
+
+
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: false # 表示是否从Eureka Server获取注册信息,默认为true.因为这是一个单点的Eureka Server,不需要同步其他的Eureka Server节点的数据,这里设置为false
+    register-with-eureka: false # 表示是否将自己注册到Eureka Server,默认为true.由于当前应用就是Eureka Server,故而设置为false.
+    service-url:
+      # 设置与Eureka Server的地址,查询服务和注册服务都需要依赖这个地址.默认是http://localhost:8761/eureka/;多个地址可使用','风格.
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+management:
+#  security:
+#    enabled: false #是否开启actuator安全认证

@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: consul-client
+
+  cloud:
+    consul:
+      host: localhost
+      # 服务注册中心的port
+      port: 8500
+  #注册到consul的服务名称
+  discovery:
+    register: false
+    instanceId: ${spring.application.name}
+
+#
+server:
+  port: 12371

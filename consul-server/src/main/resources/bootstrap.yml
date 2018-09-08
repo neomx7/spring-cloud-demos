@@ -1,0 +1,24 @@
+server:
+  port: 12361
+spring:
+  application:
+    name: consul-server
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      config:
+        enabled: true
+        format: properties
+        watch:
+          enabled: true
+        defaultContext: ${spring.application.name}
+        prefix: config
+        dataKey: data
+#        #profile配置的文件夹名分隔符
+        profileSeparator: '.'
+      discovery:
+        tags: discy=gl2018,haha
+        healthCheckPath:  /health
+        healthCheckInterval: 15s
+#        #注册到consul的服务名称
